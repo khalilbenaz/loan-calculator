@@ -79,7 +79,7 @@ export function computeAmortization(inputs: LoanInputs): AmortizationRow[] {
 export function formatEur(value: number): string {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",
-    currency: "EUR",
+    currency: "MAD",
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(value);

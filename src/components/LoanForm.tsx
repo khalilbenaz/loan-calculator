@@ -18,7 +18,7 @@ export default function LoanForm({ inputs, onChange }: Props) {
       {/* Montant */}
       <div className="space-y-1.5">
         <label htmlFor="principal" className="block text-sm font-medium text-slate-600">
-          Montant emprunté (€)
+          Montant emprunté (MAD)
         </label>
         <div className="relative">
           <input
@@ -31,7 +31,7 @@ export default function LoanForm({ inputs, onChange }: Props) {
             placeholder="Ex. : 200 000"
             className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 pr-10 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
           />
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-sm">€</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-sm">DH</span>
         </div>
       </div>
 

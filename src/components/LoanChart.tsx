@@ -125,9 +125,9 @@ function BalanceChart({ amortization }: { amortization: AmortizationRow[] }) {
   if (!xTicks.includes(n - 1)) xTicks.push(n - 1);
 
   const formatK = (v: number) => {
-    if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M€`;
-    if (v >= 1_000) return `${Math.round(v / 1_000)}k€`;
-    return `${Math.round(v)}€`;
+    if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M DH`;
+    if (v >= 1_000) return `${Math.round(v / 1_000)}k DH`;
+    return `${Math.round(v)} DH`;
   };
 
   return (
