@@ -41,7 +41,7 @@ export default function App() {
           </div>
           <div>
             <h1 className="text-base font-bold text-slate-900 leading-tight">Calculatrice de prêt</h1>
-            <p className="text-xs text-slate-400 leading-tight">Mensualités, intérêts et tableau d&apos;amortissement</p>
+            <p className="text-xs text-slate-500 leading-tight">Mensualités, intérêts et tableau d&apos;amortissement</p>
           </div>
         </div>
       </header>
@@ -54,7 +54,7 @@ export default function App() {
             <LoanForm inputs={inputs} onChange={setInputs} />
 
             {/* Info note */}
-            <p className="text-xs text-slate-400 px-1">
+            <p className="text-xs text-slate-500 px-1 leading-relaxed">
               Formule d&apos;amortissement classique à taux fixe.
               Les résultats sont indicatifs et n&apos;incluent pas les frais annexes.
             </p>
@@ -79,7 +79,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="max-w-5xl mx-auto px-4 sm:px-6 pb-8">
-        <p className="text-center text-xs text-slate-400">
+        <p className="text-center text-xs text-slate-500">
           Calculs 100% navigateur — aucune donnée transmise — Licence MIT
         </p>
       </footer>

@@ -26,8 +26,8 @@ function Card({ label, value, sub, accent = "blue" }: CardProps) {
       <div className={`h-1 w-full bg-gradient-to-r ${gradient}`} />
       <div className="p-5">
         <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">{label}</p>
-        <p className="mt-1 text-2xl font-bold text-slate-900 truncate">{value}</p>
-        {sub && <p className="mt-0.5 text-xs text-slate-400">{sub}</p>}
+        <p className="mt-1 text-xl xl:text-2xl font-bold text-slate-900 tabular-nums break-words leading-tight">{value}</p>
+        {sub && <p className="mt-1 text-xs text-slate-400">{sub}</p>}
       </div>
     </div>
   );

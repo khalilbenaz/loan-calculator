@@ -26,9 +26,10 @@ function DonutChart({ principal, interest }: { principal: number; interest: numb
   const capitalArc = circumference * capitalRatio;
   const interestArc = circumference * (1 - capitalRatio);
 
-  // Starting at top (−90°)
-  const capitalOffset = 0;
-  const interestOffset = -(circumference * capitalRatio);
+  // Both arcs share a single -90° rotation applied to a <g> so they start at
+  // the top. The interest arc is offset by the negative length of the capital
+  // arc so it begins exactly where the capital arc ends (no overlap/gap).
+  const interestOffset = -capitalArc;
 
   return (
     <div className="flex flex-col items-center gap-6">
@@ -36,32 +37,31 @@ function DonutChart({ principal, interest }: { principal: number; interest: numb
         <svg width={size} height={size} role="img" aria-label="Répartition capital / intérêts">
           {/* Background circle */}
           <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e2e8f0" strokeWidth={strokeWidth} />
-          {/* Capital arc */}
-          <circle
-            cx={cx}
-            cy={cy}
-            r={r}
-            fill="none"
-            stroke="#3b82f6"
-            strokeWidth={strokeWidth}
-            strokeDasharray={`${capitalArc} ${circumference - capitalArc}`}
-            strokeDashoffset={circumference * 0.25}
-            strokeLinecap="butt"
-            style={{ transform: "rotate(-90deg)", transformOrigin: `${cx}px ${cy}px` }}
-          />
-          {/* Interest arc */}
-          <circle
-            cx={cx}
-            cy={cy}
-            r={r}
-            fill="none"
-            stroke="#8b5cf6"
-            strokeWidth={strokeWidth}
-            strokeDasharray={`${interestArc} ${circumference - interestArc}`}
-            strokeDashoffset={circumference * 0.25 + interestOffset}
-            strokeLinecap="butt"
-            style={{ transform: "rotate(-90deg)", transformOrigin: `${cx}px ${cy}px` }}
-          />
+          <g transform={`rotate(-90 ${cx} ${cy})`}>
+            {/* Capital arc */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={r}
+              fill="none"
+              stroke="#3b82f6"
+              strokeWidth={strokeWidth}
+              strokeDasharray={`${capitalArc} ${circumference - capitalArc}`}
+              strokeLinecap="butt"
+            />
+            {/* Interest arc */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={r}
+              fill="none"
+              stroke="#8b5cf6"
+              strokeWidth={strokeWidth}
+              strokeDasharray={`${interestArc} ${circumference - interestArc}`}
+              strokeDashoffset={interestOffset}
+              strokeLinecap="butt"
+            />
+          </g>
           {/* Center label */}
           <text x={cx} y={cy - 8} textAnchor="middle" className="text-xs" fill="#64748b" fontSize={11} fontFamily="Inter, sans-serif">
             Capital
@@ -72,7 +72,7 @@ function DonutChart({ principal, interest }: { principal: number; interest: numb
         </svg>
       </div>
       {/* Legend */}
-      <div className="flex gap-6 text-sm">
+      <div className="flex flex-wrap justify-center gap-6 text-sm">
         <div className="flex items-center gap-2">
           <span className="inline-block w-3 h-3 rounded-full bg-blue-500" />
           <div>
@@ -215,12 +215,14 @@ export default function LoanChart({ results, amortization }: Props) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
       {/* Toggle */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold text-slate-800">Visualisation</h2>
         <div className="flex rounded-xl overflow-hidden border border-slate-200 text-sm">
           <button
+            type="button"
             onClick={() => setMode("donut")}
-            className={`px-4 py-1.5 font-medium transition ${
+            aria-pressed={mode === "donut"}
+            className={`px-4 py-1.5 font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset ${
               mode === "donut"
                 ? "bg-blue-500 text-white"
                 : "bg-white text-slate-600 hover:bg-slate-50"
@@ -229,8 +231,10 @@ export default function LoanChart({ results, amortization }: Props) {
             Répartition
           </button>
           <button
+            type="button"
             onClick={() => setMode("balance")}
-            className={`px-4 py-1.5 font-medium transition ${
+            aria-pressed={mode === "balance"}
+            className={`px-4 py-1.5 font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset ${
               mode === "balance"
                 ? "bg-blue-500 text-white"
                 : "bg-white text-slate-600 hover:bg-slate-50"
